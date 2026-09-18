@@ -10,7 +10,7 @@ if not openai_api_key:
 
 os.environ["OPENAI_API_KEY"] = openai_api_key
 
-from langchain_community.llms import Ollama 
+from langchain_openai import ChatOpenAI
 import streamlit as st 
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
@@ -29,7 +29,10 @@ prompt=ChatPromptTemplate.from_messages(
 
 st.title("Langchain demo")
 input_text=st.text_input("What question you have in mind?")
-llm=Ollama(model="gemma:2b")
+llm = ChatOpenAI(
+    model="gpt-4o-mini",
+    temperature=0
+)
 output_parser=StrOutputParser()
 chain=prompt|llm|output_parser
 
